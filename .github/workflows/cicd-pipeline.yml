@@ -1,5 +1,5 @@
 # Nome do workflow
-name: CI/CD Pipeline Java com H2
+name: CI/CD Pipeline java com H2
 # Gatilhos: roda em push ou pull request para a branch main
 on:
   push:
