@@ -21,7 +21,7 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-      # 3. Roda o build e os testes.
+      # 3. Roda o build e os testes
       - name: Build e Testes com Maven
         run: mvn -B verify
   # Job 2: Empacotamento com Docker
@@ -41,6 +41,9 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Configurar nome da imagem em letras minúsculas
+        id: string
+        run: echo "lowercase=$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_OUTPUT
       - name: Construir e enviar a imagem Docker
         uses: docker/build-push-action@v5
         with:
