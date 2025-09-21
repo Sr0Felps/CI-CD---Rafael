@@ -1,5 +1,5 @@
 # Nome do workflow
-name: CI/CD Pipeline java com H2
+name: CI/CD Pipeline Java com H2
 # Gatilhos: roda em push ou pull request para a branch main
 on:
   push:
@@ -24,7 +24,7 @@ jobs:
       # 3. Roda o build e os testes.
       - name: Build e Testes com Maven
         run: mvn -B verify
-  # NOVO BLOCO ADICIONADO ABAIXO
+  # Job 2: Empacotamento com Docker
   build-and-push-docker:
     name: Construir e Publicar Imagem Docker
     runs-on: ubuntu-latest
@@ -34,11 +34,6 @@ jobs:
       contents: read
       packages: write
     steps:
-      - id: string
-        uses: ASzc/change-string-case-action@v1
-        with:
-         string: ${{ github.repository }}
-         case: lower
       - uses: actions/checkout@v4
       - name: Login no GitHub Container Registry
         uses: docker/login-action@v3
@@ -51,5 +46,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/${{ steps.string.outputs.lowercase }}:latest
-        
+          tags: ghcr.io/${{ github.repository|lower }}:latest

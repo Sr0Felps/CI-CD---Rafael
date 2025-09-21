@@ -1,5 +1,5 @@
 #--- Estágio 1: Build ---
-FROM eclipse-temurin:17-jdk-jammy as builder
+FROM maven:3.8.6-openjdk-17 as builder
 WORKDIR /app
 COPY . .
 RUN mvn -B package -DskipTests
